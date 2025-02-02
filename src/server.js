@@ -1,13 +1,19 @@
-import express from "express";
-import configViewEngine from "./configs/viewEngine";
-import initWebRoutes from "./routes/web";
-require("dotenv").config();
+const express = require("express");
+const configViewEngine = require("./configs/viewEngine");
+const initWebRoutes = require("./routes/web");
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
 // Config view engine
 configViewEngine(app);
+
+// Use body-parser to post data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Init all web routes
 initWebRoutes(app);
