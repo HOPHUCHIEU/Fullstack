@@ -1,10 +1,4 @@
-const mysql = require("mysql");
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "jwt",
-});
+const userServices = require("../service/userService");
 
 const handleHello = (req, res) => {
   return res.render("home");
@@ -19,20 +13,10 @@ const handleCreateUser = (req, res) => {
   let password = req.body.password;
   let username = req.body.username;
 
-  // A simple SELECT query
+  // userServices.creatNewUser(email, password, username);
+  userServices.getUserList();
 
-  connection.query(
-    "INSERT INTO users (email, password, username) VALUES (?, ?, ?)",
-    [email, password, username],
-    function (err, results, fields) {
-      if (err) {
-        console.error(err);
-        return res.status(500).send("Error querying the database");
-      }
-
-      return res.send("Create user successfully");
-    }
-  );
+  return res.send("Create user successfully");
 };
 
 module.exports = {
